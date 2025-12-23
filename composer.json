@@ -1,0 +1,22 @@
+{
+  "name": "hopekell-dev/core",
+  "description": "Hopekell Core Library for CodeCanyon Scripts",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "HopekellDev\\Core\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "HopekellDev\\Core\\CoreServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^10.0|^11.0"
+  }
+}
