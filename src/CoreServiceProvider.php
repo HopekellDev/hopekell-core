@@ -11,7 +11,7 @@ class CoreServiceProvider extends ServiceProvider
     public function boot(Router $router): void
     {
         // Load package routes
-       $this->loadRoutesFrom(__DIR__ . '/Installer/Routes/install.php')
+       $this->loadRoutesFrom(__DIR__ . '/Installer/Routes/install.php');
 
         // Load package views
         $this->loadViewsFrom(
