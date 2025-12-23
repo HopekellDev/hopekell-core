@@ -1,16 +1,20 @@
 <?php
 
-namespace HopekellDev\Core\Installer\Http\Middleware;
+namespace HopekellDev\Core\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class EnsureInstalled
 {
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $license = base_path(
-            'vendor/hopekell-dev/core/storage/HOPEKELLDEV.LIV'
-        );
+        // Allow installer routes
+        if ($request->is('install*')) {
+            return $next($request);
+        }
+
+        $license = storage_path('hopekell/HOPEKELLDEV.LIV');
 
         if (! file_exists($license)) {
             return redirect()->route('hopekell.install');
