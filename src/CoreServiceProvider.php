@@ -11,11 +11,11 @@ class CoreServiceProvider extends ServiceProvider
     public function boot(Router $router): void
     {
         // Load package routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/installer.php');
+       $this->loadRoutesFrom(__DIR__ . '/Installer/Routes/install.php')
 
         // Load package views
         $this->loadViewsFrom(
-            __DIR__ . '/../resources/views',
+            __DIR__ . '/Installer/resources/views',
             'hopekell-installer'
         );
 
