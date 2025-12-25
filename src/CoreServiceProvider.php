@@ -4,32 +4,25 @@ namespace HopekellDev\Core;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-use HopekellDev\Core\Middleware\EnsureInstalled;
+use Illuminate\Contracts\Http\Kernel;
+use HopekellDev\Core\Installer\Http\Middleware\EnsureInstalled;
 
 class CoreServiceProvider extends ServiceProvider
 {
     public function boot(Router $router): void
     {
-        // Load package routes
-       $this->loadRoutesFrom(__DIR__ . '/Installer/Routes/install.php');
+        // 🔹 Load package routes
+        $this->loadRoutesFrom(__DIR__ . '/Installer/Routes/install.php');
 
-        // Load package views
-        $this->loadViewsFrom(
-            __DIR__ . '/Installer/resources/views',
-            'hopekell-installer'
-        );
+        // 🔹 Load package views
+        $this->loadViewsFrom(__DIR__ . '/Installer/resources/views', 'hopekell-installer');
 
-        // Alias middleware (optional, but fine)
-        $router->aliasMiddleware(
-            'hopekell.installed',
-            EnsureInstalled::class
-        );
+        // 🔹 Alias middleware (optional)
+        $router->aliasMiddleware('hopekell.installed', EnsureInstalled::class);
 
-        // 🔴 IMPORTANT: Automatically APPLY middleware
-        $router->pushMiddlewareToGroup(
-            'web',
-            EnsureInstalled::class
-        );
+        // 🔹 Apply middleware globally to all HTTP requests
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->pushMiddleware(EnsureInstalled::class);
     }
 
     public function register(): void

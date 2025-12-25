@@ -1,33 +1,56 @@
-@extends('hopekelldev:layouts.installer')
+@extends('hopekell-installer::layouts.installer')
 
-@section('step', 'Database Setup')
+@section('step', 'Installation Complete')
 
 @section('content')
-<form method="POST" action="{{ route('installer.database') }}">
-    @csrf
+@php
+    $currentStep = 5;
+@endphp
 
-    <div class="mb-3">
-        <label>Database Host</label>
-        <input name="db_host" class="form-control" value="127.0.0.1" required>
+<div class="text-center py-5">
+
+    <!-- Success Icon -->
+    <div class="mb-4">
+        <i class="bi bi-check-circle-fill text-success" style="font-size:100px"></i>
     </div>
 
-    <div class="mb-3">
-        <label>Database Name</label>
-        <input name="db_name" class="form-control" required>
+    <h2 class="mb-3">Installation Successful 🎉</h2>
+    <p class="text-muted mb-4">
+        Your application has been installed successfully and is ready to use.
+    </p>
+
+    <!-- Admin Credentials -->
+    <div class="card shadow-sm mx-auto mb-4" style="max-width: 420px;">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Default Admin Login</h5>
+
+            <div class="text-start">
+                <p class="mb-1">
+                    <strong>Email:</strong>
+                    <code>admin@example.com</code>
+                </p>
+                <p class="mb-0">
+                    <strong>Password:</strong>
+                    <code>Admin1223</code>
+                </p>
+            </div>
+
+            <small class="text-danger d-block mt-3">
+                ⚠️ Please change these credentials immediately after login.
+            </small>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Database Username</label>
-        <input name="db_user" class="form-control" required>
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+        <a href="{{ url('/') }}" class="btn btn-success btn-lg">
+            <i class="bi bi-globe"></i> Go to Website
+        </a>
+
+        <a href="{{ route('admin.dashbord') }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-shield-lock"></i> Admin Login
+        </a>
     </div>
 
-    <div class="mb-3">
-        <label>Database Password</label>
-        <input name="db_pass" class="form-control">
-    </div>
-
-    <button class="btn btn-primary w-100">
-        Install
-    </button>
-</form>
+</div>
 @endsection

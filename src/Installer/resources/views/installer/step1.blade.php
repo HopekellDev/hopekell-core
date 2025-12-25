@@ -1,4 +1,4 @@
-@extends('hopekelldev:layouts.installer')
+@extends('hopekell-installer::layouts.installer')
 
 @section('step', 'Requirements')
 
@@ -28,8 +28,8 @@
 </ul>
 
 @if(!in_array(false, $requirements, true))
-    <a href="{{ route('installer.step2') }}" class="btn btn-primary w-100">
-        Continue
+    <a href="{{ route('hopekell.install.step2') }}" class="btn btn-primary w-100">
+        Veirfy Purchase Code
     </a>
 @else
     <div class="alert alert-danger">

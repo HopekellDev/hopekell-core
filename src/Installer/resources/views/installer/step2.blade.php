@@ -1,9 +1,12 @@
-@extends('hopekelldev:layouts.installer')
+@extends('hopekell-installer::layouts.installer')
 
 @section('step', 'License Verification')
 
 @section('content')
-<form method="POST" action="{{ route('installer.verify') }}">
+@php
+    $currentStep = 2;
+@endphp
+<form method="POST" action="{{ route('hopekell.install.verify') }}">
     @csrf
 
     <div class="mb-3">

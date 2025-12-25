@@ -6,7 +6,10 @@
   "autoload": {
     "psr-4": {
       "HopekellDev\\Core\\": "src/"
-    }
+    },
+    "files": [
+      "vendor/hopekell-dev/core/src/Installer/Http/Helpers.php"
+    ]
   },
   "extra": {
     "laravel": {

@@ -2,15 +2,35 @@
 
 namespace HopekellDev\Core\Installer\Services;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+
 class LicenseVerifier
 {
-    public static function verify(string $code, string $domain): void
+    // private const REQUEST_HASH = '607d20bf9f3d4429667c5498afe1b28beaa6d0739be28e8719';
+    public static function verify(string $code, string $domain)
     {
-        if (strlen($code) < 10) {
-            abort(403, 'Invalid purchase code');
+        if (! Str::isUuid($code)) {
+            return [
+                'status' => 'error',
+                'message' => 'Invalid purchase code format'
+            ];
         }
 
-        // TODO: Call HopekellDev license server
+        $response =  Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Request-Hash' => '607d20bf9f3d4429667c5498afe1b28beaa6d0739be28e8719'
+        ])->post(
+            'https://hopekelltech.com/api/envato/verify-license',
+            [
+                'purchase_code' => $code,
+                'domain'        => $domain,
+                'product' => config('app.product'),
+            ]
+        );
+
+        return $response->json();
     }
 
     public static function lock(): void
