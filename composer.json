@@ -8,7 +8,7 @@
       "HopekellDev\\Core\\": "src/"
     },
     "files": [
-      "vendor/hopekell-dev/core/src/Installer/Http/Helpers.php"
+      "src/Installer/Http/Helpers.php"
     ]
   },
   "extra": {
